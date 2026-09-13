@@ -15,8 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JETTON_MASTER: EQCUcgi1T0zSOvRIIM4ucj83GI2xqTxrLhaAlwaH8tOw9oTJ
+      CLEAN_IMAGE: https://raw.githubusercontent.com/hazhanhasani/BULECOIN-GRAM/main/bluecoin-logo.png
     steps:
-      - name: Query TON APIs
+      - name: Query TON APIs and contract capabilities
         shell: bash
         run: |
           set -euo pipefail
@@ -27,8 +28,13 @@ jobs:
           curl --fail --silent --show-error --retry 3 \
             "https://toncenter.com/api/v2/getTokenData?address=${JETTON_MASTER}" \
             -o audit/toncenter.json
+          curl --fail --silent --show-error --retry 3 \
+            -X POST "https://toncenter.com/api/v3/runGetMethod" \
+            -H 'Content-Type: application/json' \
+            -d "{\"address\":\"${JETTON_MASTER}\",\"method\":\"get_next_admin_address\",\"stack\":[]}" \
+            -o audit/next-admin.json
 
-      - name: Validate BLUEX identity and supply
+      - name: Validate BLUEX identity supply and pre-lock state
         shell: bash
         run: |
           set -euo pipefail
@@ -36,16 +42,34 @@ jobs:
           jq '{mintable,total_supply,holders_count,verification,metadata}' audit/tonapi.json
           echo '=== TONCENTER ==='
           jq '.result | {address,total_supply,mintable,admin_address,jetton_content}' audit/toncenter.json
+          echo '=== CONTRACT CAPABILITY: get_next_admin_address ==='
+          jq '{exit_code,stack}' audit/next-admin.json
 
           NAME=$(jq -r '.metadata.name // empty' audit/tonapi.json)
           SYMBOL=$(jq -r '.metadata.symbol // empty' audit/tonapi.json)
           DECIMALS=$(jq -r '.metadata.decimals // empty' audit/tonapi.json)
           SUPPLY=$(jq -r '.total_supply // empty' audit/tonapi.json)
+          IMAGE=$(jq -r '.metadata.image // empty' audit/tonapi.json)
+          ADMIN=$(jq -r '.result.admin_address // empty' audit/toncenter.json)
+          NEXT_ADMIN_EXIT=$(jq -r '.exit_code // -1' audit/next-admin.json)
 
           test "$NAME" = "BlueCoin"
           test "$SYMBOL" = "BLUEX"
           test "$DECIMALS" = "9"
           test "$SUPPLY" = "100000000000000000"
+          test "$NEXT_ADMIN_EXIT" = "0"
+
+          echo "Current admin: ${ADMIN}"
+          if [ "$IMAGE" = "$CLEAN_IMAGE" ]; then
+            echo 'Metadata image URL: CLEAN'
+          else
+            echo "::warning::Metadata image URL is not final: ${IMAGE}"
+            echo "::warning::Expected final image URL: ${CLEAN_IMAGE}"
+          fi
+
+          # Important for this contract family: get_jetton_data may continue reporting
+          # mintable=true even after admin is dropped. The final lock criterion is that
+          # the privileged admin is irreversibly removed, not this API flag alone.
 
       - name: Upload raw public audit data
         uses: actions/upload-artifact@v4
