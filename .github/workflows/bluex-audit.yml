@@ -1,0 +1,55 @@
+name: BLUEX On-chain Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/bluex-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      JETTON_MASTER: EQCUcgi1T0zSOvRIIM4ucj83GI2xqTxrLhaAlwaH8tOw9oTJ
+    steps:
+      - name: Query TON APIs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audit
+          curl --fail --silent --show-error --retry 3 \
+            "https://tonapi.io/v2/jettons/${JETTON_MASTER}" \
+            -o audit/tonapi.json
+          curl --fail --silent --show-error --retry 3 \
+            "https://toncenter.com/api/v2/getTokenData?address=${JETTON_MASTER}" \
+            -o audit/toncenter.json
+
+      - name: Validate BLUEX identity and supply
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== TONAPI ==='
+          jq '{mintable,total_supply,holders_count,verification,metadata}' audit/tonapi.json
+          echo '=== TONCENTER ==='
+          jq '.result | {address,total_supply,mintable,admin_address,jetton_content}' audit/toncenter.json
+
+          NAME=$(jq -r '.metadata.name // empty' audit/tonapi.json)
+          SYMBOL=$(jq -r '.metadata.symbol // empty' audit/tonapi.json)
+          DECIMALS=$(jq -r '.metadata.decimals // empty' audit/tonapi.json)
+          SUPPLY=$(jq -r '.total_supply // empty' audit/tonapi.json)
+
+          test "$NAME" = "BlueCoin"
+          test "$SYMBOL" = "BLUEX"
+          test "$DECIMALS" = "9"
+          test "$SUPPLY" = "100000000000000000"
+
+      - name: Upload raw public audit data
+        uses: actions/upload-artifact@v4
+        with:
+          name: bluex-onchain-audit
+          path: audit/*.json
+          retention-days: 7
