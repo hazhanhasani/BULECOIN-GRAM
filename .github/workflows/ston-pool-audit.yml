@@ -1,0 +1,47 @@
+name: STON Pool Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ston-pool-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      POOL: EQAJTo3VcLriSaMj-HdTzeEX6NJoQCyzG59bdvMW0k9956WX
+    steps:
+      - name: Query STON pool API and contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audit
+          curl --fail --silent --show-error --retry 3 \
+            "https://api.ston.fi/v1/pools/${POOL}" \
+            -o audit/ston-pool.json
+          curl --fail --silent --show-error --retry 3 \
+            -X POST "https://toncenter.com/api/v3/runGetMethod" \
+            -H 'Content-Type: application/json' \
+            -d "{\"address\":\"${POOL}\",\"method\":\"get_pool_data\",\"stack\":[]}" \
+            -o audit/get-pool-data.json
+
+      - name: Print pool state
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== STON API POOL ==='
+          jq . audit/ston-pool.json
+          echo '=== DIRECT get_pool_data ==='
+          jq . audit/get-pool-data.json
+
+      - name: Upload pool audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: ston-pool-audit
+          path: audit/*.json
+          retention-days: 7
