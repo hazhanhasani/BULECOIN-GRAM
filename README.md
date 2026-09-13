@@ -1,23 +1,33 @@
 # BlueCoin (BLUEX)
 
-BlueCoin (BLUEX) is a TON Jetton connected to the BlueTap game ecosystem.
+BlueCoin (BLUEX) is a fixed-supply TON Jetton with public liquidity on STON.fi.
 
-## Mainnet contract
+## Mainnet
 
 - Jetton Master: `EQCUcgi1T0zSOvRIIM4ucj83GI2xqTxrLhaAlwaH8tOw9oTJ`
 - Symbol: `BLUEX`
 - Decimals: `9`
-- Total supply: `100,000,000 BLUEX`
-- Logo: `bluecoin-logo.png`
+- Final supply: `100,000,000 BLUEX`
+- Minting: permanently disabled
+- Ownership/admin: revoked
+- STON.fi V2 pool: `EQAJTo3VcLriSaMj-HdTzeEX6NJoQCyzG59bdvMW0k9956WX`
 
-## Current project status
+## Verification
 
-BlueTap currently uses off-chain Blue Points for gameplay. Direct BLUEX claiming is intentionally not enabled until distribution rules, anti-abuse controls, wallet settlement and supply/admin finalization are complete.
+Tonkeeper asset verification is currently under review in [ton-assets PR #6222](https://github.com/tonkeeper/ton-assets/pull/6222).
 
-See [TOKENOMICS.md](TOKENOMICS.md) for the current distribution design draft.
+## Website
 
-## On-chain audit
+The official static website source is in [`site/`](site/) and is deployed through GitHub Pages using `.github/workflows/pages.yml`.
 
-The repository includes a `BLUEX On-chain Audit` GitHub Action. It queries TONAPI and TON Center, validates the token identity and the expected fixed initial supply, and stores the raw public audit response as a short-lived workflow artifact.
+The site includes live STON.fi pool reserve/ratio data with an on-chain snapshot fallback, the official Jetton Master, audit links, and the current verification status.
 
-Before any irreversible admin/supply action, run the audit again and verify metadata, supply and admin state.
+## Audits
+
+- [Final BLUEX on-chain audit](AUDIT.md)
+- [STON.fi pool audit](STON-POOL-AUDIT.md)
+- GitHub Actions workflows continuously provide reproducible public checks.
+
+## Tokenomics
+
+`TOKENOMICS.md` remains a planning document. Detailed allocation and utility should be treated as draft until explicitly finalized and published.

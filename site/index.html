@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="BlueCoin (BLUEX) is a fixed-supply community token on TON with permanently disabled minting and live liquidity on STON.fi.">
+  <meta property="og:title" content="BlueCoin (BLUEX) — Fixed Supply on TON">
+  <meta property="og:description" content="100,000,000 BLUEX. Minting permanently disabled. Ownership revoked. Trade on STON.fi.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/hazhanhasani/BULECOIN-GRAM/main/bluecoin-logo.png">
+  <meta property="og:type" content="website">
+  <title>BlueCoin (BLUEX) — TON</title>
+  <link rel="icon" href="./bluecoin-logo.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="BlueCoin home">
+        <img src="./bluecoin-logo.png" alt="BlueCoin logo">
+        <span>BlueCoin <b>BLUEX</b></span>
+      </a>
+      <div class="nav-links">
+        <a href="#market">Market</a>
+        <a href="#security">Security</a>
+        <a href="#contract">Contract</a>
+        <a href="#about">About</a>
+      </div>
+      <a class="button button-small" href="https://app.ston.fi/pools/EQAJTo3VcLriSaMj-HdTzeEX6NJoQCyzG59bdvMW0k9956WX" target="_blank" rel="noopener">Trade BLUEX</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero container">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="dot"></span> TON Mainnet · Fixed supply</div>
+        <h1>A transparent community token built on TON.</h1>
+        <p class="lead">BlueCoin (BLUEX) has a permanently fixed supply of 100,000,000 tokens. Minting is disabled, ownership has been revoked, and liquidity is available on STON.fi.</p>
+        <div class="hero-actions">
+          <a class="button" href="https://app.ston.fi/pools/EQAJTo3VcLriSaMj-HdTzeEX6NJoQCyzG59bdvMW0k9956WX" target="_blank" rel="noopener">Open STON.fi pool</a>
+          <a class="button button-secondary" href="https://tonviewer.com/EQCUcgi1T0zSOvRIIM4ucj83GI2xqTxrLhaAlwaH8tOw9oTJ" target="_blank" rel="noopener">View on Tonviewer</a>
+        </div>
+        <div class="verification-note">
+          <span class="status-pill">Verification under review</span>
+          <a href="https://github.com/tonkeeper/ton-assets/pull/6222" target="_blank" rel="noopener">Tonkeeper ton-assets PR #6222 ↗</a>
+        </div>
+      </div>
+
+      <aside class="token-card" aria-label="BlueCoin token summary">
+        <div class="token-logo-wrap"><img src="./bluecoin-logo.png" alt=""></div>
+        <div>
+          <span class="muted">BlueCoin</span>
+          <div class="ticker">BLUEX</div>
+        </div>
+        <div class="token-grid">
+          <div><span>Supply</span><strong>100,000,000</strong></div>
+          <div><span>Decimals</span><strong>9</strong></div>
+          <div><span>Mintable</span><strong class="good">No</strong></div>
+          <div><span>Admin</span><strong class="good">Revoked</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="market" class="section soft-section">
+      <div class="container">
+        <div class="section-heading">
+          <div><span class="kicker">Live market</span><h2>BLUEX / GRAM on STON.fi</h2></div>
+          <div id="liveStatus" class="live-status"><span></span> Loading pool data…</div>
+        </div>
+        <div class="metric-grid">
+          <article class="metric-card">
+            <span>Pool price</span>
+            <strong id="priceGram">0.000718 GRAM</strong>
+            <small>per 1 BLUEX</small>
+          </article>
+          <article class="metric-card">
+            <span>Pool ratio</span>
+            <strong id="poolRatio">1,392 BLUEX</strong>
+            <small>per 1 GRAM</small>
+          </article>
+          <article class="metric-card">
+            <span>GRAM reserve</span>
+            <strong id="gramReserve">5.0000</strong>
+            <small>GRAM</small>
+          </article>
+          <article class="metric-card">
+            <span>BLUEX reserve</span>
+            <strong id="bluexReserve">6,960.19</strong>
+            <small>BLUEX</small>
+          </article>
+        </div>
+        <p class="market-note">Initial pool reference was set near <strong>$0.001 per BLUEX</strong>. Market price changes with trades and the GRAM exchange rate. Pool values above are refreshed from the public STON.fi API when available.</p>
+      </div>
+    </section>
+
+    <section id="security" class="section container">
+      <div class="section-heading simple"><div><span class="kicker">On-chain guarantees</span><h2>Supply rules that cannot be changed.</h2></div></div>
+      <div class="feature-grid">
+        <article class="feature-card"><div class="icon">100M</div><h3>Fixed total supply</h3><p>The final supply is 100,000,000 BLUEX with 9 decimals.</p></article>
+        <article class="feature-card"><div class="icon">✓</div><h3>Minting disabled</h3><p>The jetton contract reports minting as disabled. No additional BLUEX can be created.</p></article>
+        <article class="feature-card"><div class="icon">∅</div><h3>Ownership revoked</h3><p>The privileged admin has been removed, locking contract-admin operations.</p></article>
+        <article class="feature-card"><div class="icon">↗</div><h3>Publicly auditable</h3><p>Contract, pool, audit workflow and verification request are public.</p></article>
+      </div>
+      <div class="proof-row">
+        <a href="https://github.com/hazhanhasani/BULECOIN-GRAM/blob/main/AUDIT.md" target="_blank" rel="noopener">Read final on-chain audit ↗</a>
+        <a href="https://github.com/hazhanhasani/BULECOIN-GRAM/actions" target="_blank" rel="noopener">GitHub Actions audits ↗</a>
+      </div>
+    </section>
+
+    <section id="contract" class="section soft-section">
+      <div class="container contract-layout">
+        <div>
+          <span class="kicker">Official contract</span>
+          <h2>Always verify the Jetton Master.</h2>
+          <p>Use this address to identify the official BlueCoin (BLUEX) token on TON. Do not rely on the token name or ticker alone.</p>
+        </div>
+        <div class="contract-card">
+          <div class="address-label">Jetton Master</div>
+          <code id="contractAddress">EQCUcgi1T0zSOvRIIM4ucj83GI2xqTxrLhaAlwaH8tOw9oTJ</code>
+          <div class="contract-actions">
+            <button id="copyContract" class="button button-secondary" type="button">Copy address</button>
+            <a class="button button-secondary" href="https://tonviewer.com/EQCUcgi1T0zSOvRIIM4ucj83GI2xqTxrLhaAlwaH8tOw9oTJ" target="_blank" rel="noopener">Explorer</a>
+          </div>
+          <dl>
+            <div><dt>Network</dt><dd>TON Mainnet</dd></div>
+            <div><dt>Symbol</dt><dd>BLUEX</dd></div>
+            <div><dt>Decimals</dt><dd>9</dd></div>
+            <div><dt>Pool</dt><dd>STON.fi V2</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section container about-layout">
+      <div>
+        <span class="kicker">About BlueCoin</span>
+        <h2>Simple token design. Public infrastructure.</h2>
+      </div>
+      <div class="about-copy">
+        <p>BlueCoin (BLUEX) is a community-driven digital token built on TON for fast, low-cost and secure transfers. The contract is finalized: the metadata is locked, minting is disabled and ownership is revoked.</p>
+        <p>The project is currently completing ecosystem verification and expanding its public infrastructure. Detailed allocation and utility plans will be published only after they are finalized.</p>
+        <div class="link-list">
+          <a href="https://github.com/hazhanhasani/BULECOIN-GRAM" target="_blank" rel="noopener">Project repository <span>↗</span></a>
+          <a href="https://github.com/tonkeeper/ton-assets/pull/6222" target="_blank" rel="noopener">Verification request <span>↗</span></a>
+          <a href="https://app.ston.fi/pools/EQAJTo3VcLriSaMj-HdTzeEX6NJoQCyzG59bdvMW0k9956WX" target="_blank" rel="noopener">STON.fi pool <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container cta">
+      <div><span class="kicker">BLUEX on TON</span><h2>Verify first. Trade second.</h2><p>Check the official contract address before interacting with any token or pool.</p></div>
+      <a class="button" href="https://app.ston.fi/pools/EQAJTo3VcLriSaMj-HdTzeEX6NJoQCyzG59bdvMW0k9956WX" target="_blank" rel="noopener">Open official pool</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div class="brand footer-brand"><img src="./bluecoin-logo.png" alt=""><span>BlueCoin <b>BLUEX</b></span></div>
+      <p>BlueCoin is an experimental digital asset. Nothing on this website is financial advice.</p>
+      <span>© <span id="year"></span> BlueCoin</span>
+    </div>
+  </footer>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
