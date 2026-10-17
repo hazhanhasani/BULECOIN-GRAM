@@ -31,3 +31,9 @@ The site includes live STON.fi pool reserve/ratio data with an on-chain snapshot
 ## Tokenomics
 
 `TOKENOMICS.md` remains a planning document. Detailed allocation and utility should be treated as draft until explicitly finalized and published.
+
+## BNB Smart Chain (BSC) — testnet implementation
+
+A paused, zero-supply wrapped representation (**wBLUEX**) is under development in [`contracts/bsc/`](contracts/bsc/). **No BSC deployment, bridge, collateral proof or redemption has been completed.** The TON Jetton remains the canonical BLUEX token; this implementation cannot be marketed as a live asset.
+
+See [BSC integration and security plan](docs/BSC-LAUNCH.md).
