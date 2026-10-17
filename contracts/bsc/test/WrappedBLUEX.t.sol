@@ -60,8 +60,9 @@ contract WrappedBLUEXTest is Test {
     }
 
     function testMintRejectedWhilePaused() public {
-        vm.prank(ADMIN);
+        vm.startPrank(ADMIN);
         token.grantRole(token.MINTER_ROLE(), MINTER);
+        vm.stopPrank();
 
         vm.expectRevert();
         vm.prank(MINTER);
