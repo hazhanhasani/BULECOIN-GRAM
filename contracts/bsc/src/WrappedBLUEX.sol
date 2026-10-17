@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {ERC20Capped} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
-import {ERC20Pausable} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
-import {AccessControlDefaultAdminRules} from "@openzeppelin/contracts/access/extensions/AccessControlDefaultAdminRules.sol";
+import {ERC20} from "@openzeppelin/contracts@5.4.0/token/ERC20/ERC20.sol";
+import {ERC20Capped} from "@openzeppelin/contracts@5.4.0/token/ERC20/extensions/ERC20Capped.sol";
+import {ERC20Pausable} from "@openzeppelin/contracts@5.4.0/token/ERC20/extensions/ERC20Pausable.sol";
+import {AccessControlDefaultAdminRules} from "@openzeppelin/contracts@5.4.0/access/extensions/AccessControlDefaultAdminRules.sol";
 
 /// @notice BSC representation of BLUEX; NOT a TON proof verifier or live bridge.
 /// @dev reportedLockedBacking is an admin assertion. Only independently verified escrow
